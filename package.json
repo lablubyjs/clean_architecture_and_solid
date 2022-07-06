@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/jest/bin/jest"
+    "test": "node node_modules/jest/bin/jest",
+    "test:staged": "node node_modules/jest/bin/jest"
   },
   "repository": {
     "type": "git",
