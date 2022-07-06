@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/crislainesc/CLEAN_ARCHITECTURE_AND_SOLID/issues"
   },
-  "homepage": "https://github.com/crislainesc/CLEAN_ARCHITECTURE_AND_SOLID#readme"
+  "homepage": "https://github.com/crislainesc/CLEAN_ARCHITECTURE_AND_SOLID#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^4.1.3"
+  }
 }
