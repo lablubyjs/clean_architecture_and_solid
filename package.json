@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/jest/bin/jest --passWithNoTests --watch",
-    "test:staged": "node node_modules/jest/bin/jest --passWithNoTests --watch"
+    "test": "node node_modules/jest/bin/jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test:verbose": "node node_modules/jest/bin/jest --passWithNoTests --runInBand",
+    "test:unit": "npm test -- --watch -c jest-unit-config.js",
+    "test:integration": "npm test -- --watch -c jest-integration-config.js",
+    "test:staged": "npm test -- --findRelatedTests",
+    "test:ci": "npm test -- --coverage"
   },
   "repository": {
     "type": "git",
