@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/jest/bin/jest --passWithNoTests --silent --noStackTrace --runInBand",
-    "test:verbose": "node node_modules/jest/bin/jest --passWithNoTests --runInBand",
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "npm test -- --findRelatedTests",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/crislainesc/CLEAN_ARCHITECTURE_AND_SOLID#readme",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/jest": "^28.1.4",
     "@types/node": "^18.0.3",
     "@types/validator": "^13.7.4",
@@ -39,6 +40,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "validator": "^13.7.0"
   }
 }
