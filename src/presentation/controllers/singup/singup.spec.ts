@@ -2,7 +2,7 @@ import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
 import { EmailValidator, AccountModel, AddAccount, AddAccountModel } from './singup-protocols'
 import { SingUpController } from './singup'
 
-const makeEmailValidator = () => {
+const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
     isValid (email: string): boolean {
       return true
@@ -11,7 +11,7 @@ const makeEmailValidator = () => {
   return new EmailValidatorStub()
 }
 
-const makeAddAccount = () => {
+const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     async add (account: AddAccountModel): Promise<AccountModel> {
       const fakeAccount = {
@@ -27,7 +27,7 @@ const makeAddAccount = () => {
 }
 
 interface SutTypes {
-  sut: SingUpController,
+  sut: SingUpController
   emailValidatorStub: EmailValidator
   addAccountStub: AddAccount
 }
@@ -123,7 +123,7 @@ describe('SingUp Controller', () => {
         name: 'any_name',
         email: 'invalid_email@email.com',
         password: 'any_password',
-        passwordConfirmation: 'any_password',
+        passwordConfirmation: 'any_password'
       }
     }
     const httpResponse = await sut.handle(httpRequest)
@@ -139,7 +139,7 @@ describe('SingUp Controller', () => {
         name: 'any_name',
         email: 'any_email@email.com',
         password: 'any_password',
-        passwordConfirmation: 'any_password',
+        passwordConfirmation: 'any_password'
       }
     }
     await sut.handle(httpRequest)
@@ -152,16 +152,16 @@ describe('SingUp Controller', () => {
       throw new Error()
     })
     const httpRequest = {
-        body: {
-          name: 'any_name',
-          email: 'invalid_email@email.com',
-          password: 'any_password',
-          passwordConfirmation: 'any_password',
-        }
+      body: {
+        name: 'any_name',
+        email: 'invalid_email@email.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password'
       }
+    }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
-    expect(httpResponse.body).toEqual(new ServerError())
+    expect(httpResponse.body).toEqual(new ServerError(''))
   })
 
   test('should return 500 if AddAccount throws', async () => {
@@ -170,16 +170,16 @@ describe('SingUp Controller', () => {
       return new Promise((resolve, reject) => reject(new Error()))
     })
     const httpRequest = {
-        body: {
-          name: 'any_name',
-          email: 'invalid_email@email.com',
-          password: 'any_password',
-          passwordConfirmation: 'any_password',
-        }
+      body: {
+        name: 'any_name',
+        email: 'invalid_email@email.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password'
       }
+    }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
-    expect(httpResponse.body).toEqual(new ServerError())
+    expect(httpResponse.body).toEqual(new ServerError(''))
   })
 
   test('should call AddAccount with correct values', async () => {
@@ -190,7 +190,7 @@ describe('SingUp Controller', () => {
         name: 'any_name',
         email: 'any_email@email.com',
         password: 'any_password',
-        passwordConfirmation: 'any_password',
+        passwordConfirmation: 'any_password'
       }
     }
     await sut.handle(httpRequest)
@@ -208,7 +208,7 @@ describe('SingUp Controller', () => {
         name: 'valid_name',
         email: 'valid_email@email.com',
         password: 'valid_password',
-        passwordConfirmation: 'valid_password',
+        passwordConfirmation: 'valid_password'
       }
     }
     const httpResponse = await sut.handle(httpRequest)

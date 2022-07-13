@@ -33,8 +33,8 @@ export class SingUpController implements Controller {
         password
       })
       return ok(account)
-    } catch (error) {
-      return serverError()
+    } catch (error: any) {
+      return serverError(error)
     }
   }
 }
