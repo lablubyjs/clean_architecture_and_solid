@@ -12,19 +12,16 @@ describe('Singup Routes', () => {
   })
 
   beforeEach(async () => {
-    const accountCollection = MongoHelper.getCollection('accounts')
+    const accountCollection = await MongoHelper.getCollection('accounts')
     await accountCollection.deleteMany({})
   })
-  
+
   test('sould return an account on success', async () => {
-    await request(app)
-    .post('/api/singup')
-    .send({
+    await request(app).post('/api/singup').send({
       name: 'Cris',
       email: 'cris@email.com',
       password: 'password',
       passwordConfirmation: 'password'
-    })
-    .expect(200)
+    }).expect(200)
   })
 })
