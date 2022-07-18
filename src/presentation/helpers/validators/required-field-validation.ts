@@ -1,5 +1,5 @@
-import { MissingParamError } from "../../errors";
-import { Validation } from "./validation";
+import { MissingParamError } from '../../errors'
+import { Validation } from './validation'
 
 export class RequiredFieldValidation implements Validation {
   private readonly fieldName: string
@@ -8,11 +8,11 @@ export class RequiredFieldValidation implements Validation {
     this.fieldName = fieldName
   }
 
-  validate(input: any): Error | null {
-    if (!input.this.fieldName) {
+  validate (input: any): Error | null {
+    if (!input[this.fieldName]) {
       return new MissingParamError(this.fieldName)
     }
-    
+
     return null
   }
 }
