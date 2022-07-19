@@ -1,11 +1,11 @@
 import { DbAddAccount } from '../../../data/usecases/add-account/db-add-account'
-import { SingUpController } from '../../../presentation/controllers/singup/singup'
+import { SingUpController } from '../../../presentation/controllers/singup/singup-controller'
 import { BcryptAdapter } from '../../../infra/cryptography/bcrypt-adpater/brycpt-adapter'
-import { AccountMongoRepository } from '../../../infra/db/mongodb/account-repository/account'
+import { AccountMongoRepository } from '../../../infra/db/mongodb/account/account-mongo-repository'
 import { Controller } from '../../../presentation/protocols'
-import { LogControllerDecorator } from '../../decorators/log'
-import { LogMongoRepository } from '../../../infra/db/mongodb/log-repository/log'
-import { makeSingUpValidation } from './singup-validation'
+import { LogControllerDecorator } from '../../decorators/log-controller-decorator'
+import { LogMongoRepository } from '../../../infra/db/mongodb/log/log-mongo-repository'
+import { makeSingUpValidation } from './singup-validation-factory'
 
 export const makeSingUpController = (): Controller => {
   const salt = 12

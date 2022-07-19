@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { DbAuthentication } from './db-authentication'
 import {
   AccountModel,
@@ -49,7 +50,7 @@ const makeEncrypter = (): Encrypter => {
 
 const makeUpdateAccessTokenRepository = (): UpdateAccessTokenRepository => {
   class UpdateAccessTokenRepositoryStub implements UpdateAccessTokenRepository {
-    async updateAccessToken (id: string, token: string): Promise<void> {
+    async updateAccessToken (id: ObjectId, token: string): Promise<void> {
       return new Promise(resolve => resolve())
     }
   }
