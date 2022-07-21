@@ -21,7 +21,6 @@ export class SingUpController implements Controller {
         email,
         password
       })
-      console.log(account)
       if (!account) {
         return forbidden(new EmailInUseError())
       }
