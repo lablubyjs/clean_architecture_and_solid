@@ -11,8 +11,10 @@ export class AuthMiddleware implements Middleware {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const accessToken = httpRequest.headers?.['x-access-token']
+      console.log(accessToken)
       if (accessToken) {
         const account = await this.loadAccountByToken.load(accessToken, this.role)
+        console.log(account)
         if (account) {
           return ok({ accountId: account.id })
         }
