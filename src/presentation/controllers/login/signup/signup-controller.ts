@@ -1,5 +1,5 @@
-import { EmailInUseError } from '../../errors'
-import { badRequest, serverError, ok, forbidden } from '../../helpers/http/http-helper'
+import { EmailInUseError } from '../../../errors'
+import { badRequest, serverError, ok, forbidden } from '../../../helpers/http/http-helper'
 import { HttpRequest, HttpResponse, Controller, AddAccount, Validation, Authentication } from './signup-controller-protocols'
 
 export class SingUpController implements Controller {
@@ -21,6 +21,7 @@ export class SingUpController implements Controller {
         email,
         password
       })
+      console.log(account)
       if (!account) {
         return forbidden(new EmailInUseError())
       }
