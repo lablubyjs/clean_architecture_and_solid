@@ -8,6 +8,13 @@ export const badRequest = (error: Error): HttpResponse => {
   }
 }
 
+export const forbidden = (error: Error): HttpResponse => {
+  return {
+    statusCode: 403,
+    body: error
+  }
+}
+
 export const unauthorized = (): HttpResponse => {
   return {
     statusCode: 401,
@@ -18,7 +25,7 @@ export const unauthorized = (): HttpResponse => {
 export const serverError = (error: Error): HttpResponse => {
   return {
     statusCode: 500,
-    body: new ServerError(error.stack!)
+    body: new ServerError(error.stack)
   }
 }
 
