@@ -25,7 +25,11 @@ export const MongoHelper = {
   },
 
   map (data: any): any {
-    data.id = data._id
+    data.id = data._id.toString()
     return Object.assign({}, data)
+  },
+
+  mapCollection (collection: any[]): any[] {
+    return collection.map(c => MongoHelper.map(c))
   }
 }
