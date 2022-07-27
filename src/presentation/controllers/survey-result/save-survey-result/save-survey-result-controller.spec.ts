@@ -19,7 +19,7 @@ const mockRequest = (): HttpRequest => ({
 const makeSaveSurveyResult = (): SaveSurveyResult => {
   class SaveSurveyResultStub implements SaveSurveyResult {
     async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
-      return new Promise(resolve => resolve(mockSurveyResultModel()))
+      return Promise.resolve(mockSurveyResultModel())
     }
   }
   return new SaveSurveyResultStub()
@@ -60,7 +60,7 @@ describe('SaveSurveyResultController', () => {
 
   test('should return 403 if LoadSurveyById returns null', async () => {
     const { sut, loadSurveyByIdStub } = makeSut()
-    jest.spyOn(loadSurveyByIdStub, 'loadById').mockReturnValueOnce(new Promise(resolve => resolve(null)))
+    jest.spyOn(loadSurveyByIdStub, 'loadById').mockReturnValueOnce(Promise.resolve(null))
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(forbidden(new InvalidParamError('surveyId')))
   })
