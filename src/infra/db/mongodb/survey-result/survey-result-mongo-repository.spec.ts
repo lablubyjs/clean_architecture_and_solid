@@ -29,7 +29,7 @@ const makeAccount = async (): Promise<AccountModel> => {
     id: 'valid_id',
     name: 'valid_name',
     email: 'valid_email@email.com',
-    password: 'hashed_password'
+    password: 'any_password'
   }
   const res = await accountCollection.insertOne(account)
   return Object.assign({}, account, { id: res.insertedId.toString() })

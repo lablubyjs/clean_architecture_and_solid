@@ -1,21 +1,9 @@
-import { AddSurveyModel } from '../../../../domain/usecases/survey/add-survey'
+import { AddSurveyParams } from '../../../../domain/usecases/survey/add-survey'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { SurveyMongoRepository } from './survey-mongo-repository'
 import { Collection } from 'mongodb'
 
 let surveyCollection: Collection
-
-const makeFakeSurveyData = (): AddSurveyModel => ({
-  question: 'any_question',
-  answers: [{
-    image: 'any_image',
-    answer: 'any_answer'
-  },
-  {
-    answer: 'other_answer'
-  }],
-  date: new Date()
-})
 
 const makeSut = (): SurveyMongoRepository => {
   return new SurveyMongoRepository()
@@ -38,7 +26,17 @@ describe('Survey Mongo Repository', () => {
   describe('add()', () => {
     test('should add a survey on success', async () => {
       const sut = makeSut()
-      await sut.add(makeFakeSurveyData())
+      await sut.add({
+        question: 'any_question',
+        answers: [{
+          image: 'any_image',
+          answer: 'any_answer'
+        },
+        {
+          answer: 'other_answer'
+        }],
+        date: new Date()
+      })
       const survey = await surveyCollection.findOne({ question: 'any_question' })
       expect(survey).toBeTruthy()
     })
