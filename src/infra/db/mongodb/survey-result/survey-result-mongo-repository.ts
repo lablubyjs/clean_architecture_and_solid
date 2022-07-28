@@ -1,8 +1,9 @@
 import { MongoHelper, QueryBuilder } from '../helpers'
 import { SaveSurveyResultParams, SaveSurveyResultRepository, SurveyResultModel } from '@/data/usecases/survey-result/save-survey-result/db-save-survey-result-protocols'
 import { ObjectId } from 'mongodb'
+import { LoadSurveyResultRepository } from '@/data/protocols/db/survey-result/load-survey-result-repository'
 
-export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
+export class SurveyResultMongoRepository implements SaveSurveyResultRepository, LoadSurveyResultRepository {
   async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection('surveysResults')
     await surveyResultCollection.findOneAndUpdate({
@@ -20,7 +21,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
     return surveyResult
   }
 
-  private async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
+  async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection('surveysResults')
     const query = new QueryBuilder()
       .match({
@@ -174,13 +175,13 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
         answers: '$answers'
       })
       .build()
-    const [data] = await surveyResultCollection.aggregate(query).toArray()
-    if (data) {
+    const data = await surveyResultCollection.aggregate(query).toArray()
+    if (data.length) {
       const surveyResult: SurveyResultModel = {
-        surveyId: data.surveyId.toString(),
-        question: data.question.toString(),
-        date: data.date,
-        answers: data.answers
+        surveyId: data[0].surveyId.toString(),
+        question: data[0].question.toString(),
+        date: data[0].date,
+        answers: data[0].answers
       }
       return surveyResult
     }
