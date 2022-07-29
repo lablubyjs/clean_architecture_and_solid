@@ -8,7 +8,7 @@ import request from 'supertest'
 let surveyCollection: Collection
 let accountCollection: Collection
 
-const makeAccessToken = async (): Promise<string> => {
+const mockAccessToken = async (): Promise<string> => {
   const res = await accountCollection.insertOne({
     name: 'Cris',
     email: 'cris@email.com',
@@ -59,7 +59,7 @@ describe('Survey Routes', () => {
         }],
         date: new Date()
       })
-      const accessToken = await makeAccessToken()
+      const accessToken = await mockAccessToken()
       await request(app)
         .put(`/api/surveys/${res.insertedId.toString()}/results`)
         .set('x-access-token', accessToken)
