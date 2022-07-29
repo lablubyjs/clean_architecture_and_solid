@@ -25,9 +25,8 @@ export const MongoHelper = {
   },
 
   map (data: any): any {
-    data.id = data._id.toString()
-    delete data._id
-    return Object.assign({}, data)
+    const { _id, ...rest } = data
+    return Object.assign({}, rest, { id: _id.toString() })
   },
 
   mapCollection (collection: any[]): any[] {

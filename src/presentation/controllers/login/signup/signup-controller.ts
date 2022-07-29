@@ -3,7 +3,7 @@ import { badRequest, serverError, ok, forbidden } from '@/presentation/helpers/h
 import { Validation } from '@/presentation/protocols/validation'
 import { EmailInUseError } from '@/presentation/errors'
 
-export class SingUpController implements Controller {
+export class SignUpController implements Controller {
   constructor (
     private readonly addAccount: AddAccount,
     private readonly validation: Validation,
