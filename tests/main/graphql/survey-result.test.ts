@@ -17,7 +17,7 @@ const mockAccessToken = async (): Promise<string> => {
     password: 'user_graphql',
     role: 'admin'
   })
-  const id = res.insertedId.toHexString()
+  const id = res.insertedId.toString()
   const accessToken = sign({ id }, env.jwtSecret)
   await accountCollection.updateOne({
     _id: res.insertedId
@@ -40,9 +40,9 @@ describe('SurveyResult GraphQL', () => {
   })
 
   beforeEach(async () => {
-    surveyCollection = await MongoHelper.getCollection('surveys')
+    surveyCollection = MongoHelper.getCollection('surveys')
     await surveyCollection.deleteMany({})
-    accountCollection = await MongoHelper.getCollection('accounts')
+    accountCollection = MongoHelper.getCollection('accounts')
     await accountCollection.deleteMany({})
   })
 
@@ -61,7 +61,7 @@ describe('SurveyResult GraphQL', () => {
         date: now
       })
       const query = `query {
-        surveyResult (surveyId: "${surveyRes.insertedId.toHexString()}") {
+        surveyResult (surveyId: "${surveyRes.insertedId.toString()}") {
           question
           answers {
             answer
@@ -104,7 +104,7 @@ describe('SurveyResult GraphQL', () => {
         date: new Date()
       })
       const query = `query {
-        surveyResult (surveyId: "${surveyRes.insertedId.toHexString()}") {
+        surveyResult (surveyId: "${surveyRes.insertedId.toString()}") {
           question
           answers {
             answer
@@ -139,7 +139,7 @@ describe('SurveyResult GraphQL', () => {
         date: now
       })
       const query = `mutation {
-        saveSurveyResult (surveyId: "${surveyRes.insertedId.toHexString()}", answer: "Answer 1") {
+        saveSurveyResult (surveyId: "${surveyRes.insertedId.toString()}", answer: "Answer 1") {
           question
           answers {
             answer
@@ -182,7 +182,7 @@ describe('SurveyResult GraphQL', () => {
         date: new Date()
       })
       const query = `mutation {
-        saveSurveyResult (surveyId: "${surveyRes.insertedId.toHexString()}", answer: "Answer 1") {
+        saveSurveyResult (surveyId: "${surveyRes.insertedId.toString()}", answer: "Answer 1") {
           question
           answers {
             answer

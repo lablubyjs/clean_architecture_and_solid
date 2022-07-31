@@ -17,7 +17,7 @@ const mockAccessToken = async (): Promise<string> => {
     password: 'user_graphql',
     role: 'admin'
   })
-  const id = res.insertedId.toHexString()
+  const id = res.insertedId.toString()
   const accessToken = sign({ id }, env.jwtSecret)
   await accountCollection.updateOne({
     _id: res.insertedId
@@ -40,9 +40,9 @@ describe('Survey GraphQL', () => {
   })
 
   beforeEach(async () => {
-    surveyCollection = await MongoHelper.getCollection('surveys')
+    surveyCollection = MongoHelper.getCollection('surveys')
     await surveyCollection.deleteMany({})
-    accountCollection = await MongoHelper.getCollection('accounts')
+    accountCollection = MongoHelper.getCollection('accounts')
     await accountCollection.deleteMany({})
   })
 
